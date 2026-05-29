@@ -1,13 +1,29 @@
 version: '3.8'
 
 services:
-  bot:
-    build: .
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000" # FastAPI
-      - "8501:8501" # Streamlit
+      - "8000:8000"
     volumes:
       - .:/app
     environment:
       - PYTHONPATH=/app
-    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 & streamlit run app.py --server.port 8501 --server.address 0.0.0.0"
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - API_URL=http://backend:8000/analyze
+    depends_on:
+      - backend
+    command: ["streamlit", "run", "app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]

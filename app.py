@@ -1,5 +1,7 @@
 # pyrefly: ignore [missing-import]
+import os
 import streamlit as st
+from streamlit.errors import StreamlitSecretNotFoundError
 import requests
 import pandas as pd
 import time
@@ -12,7 +14,20 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-API_URL = "http://localhost:8000/analyze"
+DEFAULT_API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/analyze")
+API_URL = DEFAULT_API_URL
+
+try:
+    API_URL = st.secrets.get("API_URL", DEFAULT_API_URL)
+except StreamlitSecretNotFoundError:
+    API_URL = DEFAULT_API_URL
+
+# Allow manual override for deployment environments
+API_URL = st.sidebar.text_input("Backend API URL", API_URL)
+st.sidebar.markdown("Use this URL if your deployed backend is hosted on a different host or port.")
+
+if API_URL.startswith("http://127.0.0.1") or API_URL.startswith("http://localhost"):
+    st.sidebar.warning("The app is currently configured to call localhost. For deployment, change Backend API URL to your live backend endpoint.")
 
 # Custom CSS for rich aesthetics and styling
 st.markdown("""

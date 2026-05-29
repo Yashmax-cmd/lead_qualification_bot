@@ -19,6 +19,5 @@ RUN python model_trainer.py
 EXPOSE 8000
 EXPOSE 8501
 
-# Command to run both using a shell script or process manager
-# For simplicity in docker, we'll use a shell command to start both
-CMD uvicorn main:app --host 0.0.0.0 --port 8000 & streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+# Default command runs the backend API. Docker Compose can override this for the frontend service.
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
