@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+scikit-learn
+pandas
+numpy
+mlflow
+joblib
+python-multipart
+torch
+transformers
+torchvision

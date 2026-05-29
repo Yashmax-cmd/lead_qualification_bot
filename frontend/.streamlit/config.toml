@@ -1,0 +1,20 @@
+[theme]
+primaryColor = "#007bff"
+backgroundColor = "#f8f9fa"
+secondaryBackgroundColor = "#e9ecef"
+textColor = "#212529"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+toolbarMode = "viewer"
+
+[logger]
+level = "info"
+
+[server]
+# Get port from environment variable or use default
+# port will be set from STREAMLIT_PORT env var or command line
+headless = true
+runOnSave = true
+maxUploadSize = 200
