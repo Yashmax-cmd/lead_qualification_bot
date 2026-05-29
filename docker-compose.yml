@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    ports:
+      - "8000:8000" # FastAPI
+      - "8501:8501" # Streamlit
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 & streamlit run app.py --server.port 8501 --server.address 0.0.0.0"

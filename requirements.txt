@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+scikit-learn
+pandas
+numpy
+mlflow
+streamlit
+joblib
+python-multipart
+requests
+torch
+transformers
+torchvision

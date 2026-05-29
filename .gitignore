@@ -1,0 +1,20 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Generated data & large model files
+data/raw/
+models/
+mlruns/
+mlruns.db
+
+# OS files
+.DS_Store
+Thumbs.db
